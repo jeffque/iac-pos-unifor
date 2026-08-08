@@ -50,4 +50,4 @@ https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Instances:ins
 
 > Aqui o exemplo porque a região criada é us-east-1 !!!
 
-Fazer o ansible para instalar o nginx
+Fazer o ansible para instalar o nginx. Colocar o `index.html`
