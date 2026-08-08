@@ -1,0 +1,10 @@
+services:
+  aws:
+    build:
+      context: .
+      dockerfile: Dockerfile.aws
+    #image: amazon/aws-cli:latest
+    env_file: .env
+    volumes:
+      - .aws:/root/.aws
+      - ./terraform:/terraform

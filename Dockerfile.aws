@@ -1,0 +1,5 @@
+FROM amazon/aws-cli:latest
+
+RUN yum install -y yum-utils shadow-utils
+RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+RUN yum install -y terraform
