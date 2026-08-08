@@ -1,0 +1,9 @@
+.terraform
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+
+my-plan
+
+# terraform.tfstate não deve estar commitado
+terraform.tfstate
+terraform.tfstate.backup
