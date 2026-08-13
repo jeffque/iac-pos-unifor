@@ -1,0 +1,29 @@
+---
+- name: Configurar servidor web
+  hosts: servidores_web
+  become: true
+
+  tasks:
+    - name: Atualizar cache do apt
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Instalar NGINX
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Garantir que o NGINX esteja ativo
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Publicar página HTML
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: "0644"
