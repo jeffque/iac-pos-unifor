@@ -55,13 +55,8 @@ Para matar:
 terraform destroy
 ```
 
+# Equipe
 
-# Sequência do trabalho
-
-Conectar na máquina (via SSH). Pode chegar nela na primeira vez via:
-
-https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Instances:instanceState=running
-
-> Aqui o exemplo porque a região criada é us-east-1 !!!
-
-Fazer o ansible para instalar o nginx. Colocar o `index.html`
+- Janderson Siqueira
+- Jefferson Quesado
+- Otoni Cardoso
