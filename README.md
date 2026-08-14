@@ -10,13 +10,11 @@ Para garantir tudo funcionando, rode o comando `./init.sh`. Ele vai criar eventu
 docker compose run -i --rm --entrypoint sh aws
 ```
 
-
 Eventualmente, alterações no Dockerfile precisam ser buildadas novamente. Se for o caso:
 
 ```bash
 docker compose build aws
 ```
-
 
 Dentro do container:
 
@@ -26,7 +24,6 @@ terraform init
 
 Isso vai iniciar o `terraform` e podemos começar o serviço:
 
-
 ```bash
 terraform plan               # para verificar o plano
 terraform plan -ou my-plan   # para salvar o plano que será aplicado
@@ -34,6 +31,23 @@ terraform apply              # aplica sem seguir um plano
 terraform apply my-plan      # aplica o plano "my-plan"
 ```
 
+Para pegar o .ini a partir do `terraform`:
+
+```bash
+terraform output -raw ansible_ini > inventory.ini
+```
+
+No ansbile, testar o ping:
+
+```bash
+ansible servidores_web -i inventory.ini -m ping
+```
+
+E também no ansible, aplicar o playbook:
+
+```bash
+ansible-playbook -i inventory.ini site.yml
+```
 
 Para matar:
 
