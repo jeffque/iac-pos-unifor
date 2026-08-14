@@ -106,6 +106,11 @@ resource "aws_security_group" "webserver" {
     }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = "aula-terraform-key"
+  public_key = file("./id_ed25519.pub")
+}
+
 resource "aws_instance" "webserver" {
     ami = data.aws_ami.ubuntu.id
     instance_type = "t3.micro"
@@ -113,6 +118,8 @@ resource "aws_instance" "webserver" {
     # bora herdar as coisas dos recursos anteriores
     subnet_id = aws_subnet.public.id
     vpc_security_group_ids = [ aws_security_group.webserver.id ]
+
+    key_name = aws_key_pair.deployer.key_name
 
     # eu poderia HIPOTETICAMENTE fazer isso abaixo, mas o ideal
     # seria deixar isso para a configuração (aka ansible)
@@ -130,9 +137,12 @@ resource "aws_instance" "webserver" {
     }
 }
 
-output "comando_ssh" {
-    description = "comando para conectar via SSH na EC2"
-    value = "ssh ubuntu@${aws_instance.webserver.public_ip}"
+output "ansible_ini" {
+    description = "arquivo .ini pronto para ser consumido pelo ansible"
+    value = <<-EOF
+        [servidores_web]
+        ${aws_instance.webserver.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/terraform/id_ed25519
+        EOF
 }
 
 output "url_servidor" {

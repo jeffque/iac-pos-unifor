@@ -1,0 +1,9 @@
+FROM alpine:3.20
+
+RUN apk upgrade && \
+    apk add python3 openssh py3-pip
+
+COPY ansible/setup-venv.sh /ansible/
+RUN sh /ansible/setup-venv.sh
+
+WORKDIR /app
